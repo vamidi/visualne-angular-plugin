@@ -1,9 +1,10 @@
 import { Component, Input, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
-import { Socket, IO, Input as VisualNEInput, SocketColorType } from 'visualne';
+import { Socket, IO, Input as VisualNEInput } from 'visualne';
+import { SocketColorType } from 'visualne/types/socket';
 import { SocketType } from '../types';
 
 @Component({
-  selector: 'rete-socket',
+  selector: 'visualne-socket',
   template: `<div *ngIf="socket"
                   [ngClass]="[type, socket.name, socketType, 'socket', map(extraClass)]"
                   [style.background]="checkSocketColor('used') ? socketColor : ''"

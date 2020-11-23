@@ -1,5 +1,6 @@
 import { Type } from '@angular/core';
-import { Plugin, PluginParams, NodeEditor } from 'visualne';
+import { Plugin, NodeEditor } from 'visualne';
+import { PluginParams } from 'visualne/types/core/plugin';
 import { AngularControl, ElementProps, AngularComponentData } from './types';
 import { NodeComponent } from './node/node.component';
 
@@ -24,7 +25,7 @@ class AngularRenderer extends Plugin
   protected initialize(params: AngularPluginParams): void
   {
     // convert the context to
-    const editor: NodeEditor = this.ctx;
+    const editor: NodeEditor = this.context;
 
     editor.on('rendernode', ({ el, node, component, bindControl, bindSocket }) => {
       const ngComponent = component as unknown as AngularComponentData;

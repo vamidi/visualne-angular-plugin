@@ -11,11 +11,11 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "inlineSources": true,
-    "target": "es2015",
+    "target": "es5",
     "preserveSymlinks": true,
+    "noImplicitAny": false,
     "typeRoots": [
-      "node_modules/@types",
-      "node_modules/visualne/types"
+      "node_modules/@types"
     ],
     "lib": [
       "es2018",
