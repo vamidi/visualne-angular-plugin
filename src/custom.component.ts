@@ -9,14 +9,14 @@ import {
   ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
-import { Props } from './types';
+import { ComponentControl, Props } from './types';
 
 @Component({
     template: '',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomComponent implements OnInit, OnDestroy {
-  @Input() component!: Type<Component>;
+  @Input() component!: Type<Component | ComponentControl>;
   @Input() props!: Props;
 
   constructor(
@@ -31,10 +31,12 @@ export class CustomComponent implements OnInit, OnDestroy {
     const { props } = this;
 
     for(let key in props) {
-      Object.defineProperty(componentRef.instance, key, {
-        get() { return props[key]; },
-        set(val) { props[key] = val; }
-      })
+      if(props.hasOwnProperty(key)) {
+        Object.defineProperty(componentRef.instance, key, {
+          get() { return props[key]; },
+          set(val) { props[key] = val; }
+        })
+      }
     }
 
     this.vcr.insert(componentRef.hostView);

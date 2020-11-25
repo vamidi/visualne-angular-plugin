@@ -1,7 +1,7 @@
 {
   "name": "visualne-angular-plugin",
   "version": "1.0.1",
-  "description": "",
+  "description": "visualNE plugin to render nodes in the Angular framework",
   "main": "index.js",
   "scripts": {
     "ng": "ng",
@@ -15,7 +15,12 @@
     "type": "git",
     "url": "git+https://github.com/vamidi/visualne-angular-plugin.git"
   },
-  "keywords": [],
+  "keywords": [
+    "Angular",
+    "visualNE",
+    "Node editor",
+    "Visual programming"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -49,7 +54,7 @@
     "tslib": "2.0.3",
     "tslint": "~5.15.0",
     "typescript": "3.5.3",
-    "visualne": "^1.0.4",
+    "visualne": "^1.0.5",
     "zone.js": ">=0.9.1"
   }
 }

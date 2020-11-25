@@ -26,6 +26,11 @@ export interface AngularComponentData<P extends Props = {}, T extends Component 
     props?: P;
 }
 
+export class ComponentControl extends Component
+{
+    parent: Control;
+}
+
 export interface AngularComponent<P extends Props = {}, T extends Component = any> {
     data : AngularComponentData<P, T>;
 }

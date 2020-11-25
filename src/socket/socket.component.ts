@@ -1,14 +1,13 @@
 import { Component, Input, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { Socket, IO, Input as VisualNEInput } from 'visualne';
-import { SocketColorType } from 'visualne/types/socket';
 import { SocketType } from '../types';
 
 @Component({
   selector: 'visualne-socket',
   template: `<div *ngIf="socket"
-                  [ngClass]="[type, socket.name, socketType, 'socket', map(extraClass)]"
-                  [style.background]="checkSocketColor('used') ? socketColor : ''"
-                  [ngStyle]="{ '--featured-image': socketColor } "
+                  [ngClass]="[type, socket.name, 'socket', map(socketClass)]"
+                  [style.background]="checkSocketColor('connected') ? socket.Color : ''"
+                  [ngStyle]="{ '--featured-image': socket.Color } "
                   [title]="socket.name">
   </div>`,
   styleUrls: ['./socket.component.sass'],
@@ -17,10 +16,7 @@ import { SocketType } from '../types';
 export class SocketComponent implements AfterViewInit {
   @Input() socket!: Socket;
   @Input() io!: IO;
-  @Input() extraClass!: string[];
-
-  socketColor: string = '#fff';
-  socketType: SocketColorType = 'normal';
+  @Input() socketClass!: string[];
 
   get type(): SocketType {
     return this.io instanceof VisualNEInput ? 'input' : 'output';
@@ -28,23 +24,16 @@ export class SocketComponent implements AfterViewInit {
 
   public ngAfterViewInit()
   {
-    const c = this.socket;
-    if(c) {
-      const data = <any>c.data;
-      this.socketColor = data.color;
-      this.socketType = data.socketType ? data.socketType : 'normal';
-
-      document.documentElement.style.setProperty('--socket-color', this.socketColor);
-    }
+    document.documentElement.style.setProperty('--socket-color', this.socket.Color);
   }
 
   public map(arr: string[]): string
   {
-    return arr.join(' ');
+    return arr.length ? arr.join(' ') : '';
   }
 
   public checkSocketColor(needle: string)
   {
-    return this.extraClass.some(className => className === needle);
+    return this.socketClass ? this.socketClass.some(className => className === needle) : false;
   }
 }

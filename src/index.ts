@@ -13,20 +13,17 @@ export declare type AngularPluginParams<T extends NodeComponent = any> = PluginP
  */
 class AngularRenderer extends Plugin
 {
-  name: 'angular-render';
+  name: string = 'angular-render';
 
   constructor(editor: NodeEditor ,props: AngularPluginParams = {})
   {
     super(editor);
 
-    this.initialize(props);
+    this.initialize(editor, props);
   }
 
-  protected initialize(params: AngularPluginParams): void
+  protected initialize(editor: NodeEditor, params: AngularPluginParams): void
   {
-    // convert the context to
-    const editor: NodeEditor = this.context;
-
     editor.on('rendernode', ({ el, node, component, bindControl, bindSocket }) => {
       const ngComponent = component as unknown as AngularComponentData;
 
@@ -55,7 +52,9 @@ class AngularRenderer extends Plugin
       const props: ElementProps = element as any;
 
       props.component = ngControl.component;
-      props.props = ngControl.props;
+      props.props = Object.assign({}, ngControl.props || {}, {
+        parent: ngControl,
+      });
 
       el.appendChild(element);
     });
