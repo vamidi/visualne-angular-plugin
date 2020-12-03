@@ -16,7 +16,7 @@ import { SocketType } from '../types';
 export class SocketComponent implements AfterViewInit {
   @Input() socket!: Socket;
   @Input() io!: IO;
-  @Input() socketClass!: string[];
+  @Input() socketClass: string[] = [];
 
   get type(): SocketType {
     return this.io instanceof VisualNEInput ? 'input' : 'output';
