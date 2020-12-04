@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { Plugin, NodeEditor } from 'visualne';
+import { Plugin, NodeEditor, Connection } from 'visualne';
 import { PluginParams } from 'visualne/types/core/plugin';
 import { AngularControl, ElementProps, AngularComponentData } from './types';
 import { NodeComponent } from './node/node.component';
@@ -58,9 +58,23 @@ class AngularRenderer extends Plugin
 
       el.appendChild(element);
     });
-    editor.on(['connectioncreated', 'connectionremoved'], connection => {
-      connection.output.node.update();
+
+    editor.on('connectioncreate', (connection) => {
+      connection.input.socket.Connected = true;
       connection.input.node.update();
+
+      connection.output.socket.Connected = true;
+      connection.output.node.update();
+    });
+
+    editor.on('connectionremoved', (connection: Connection) =>
+    {
+      connection.input.socket.Connected = false;
+      connection.output.node.update();
+
+      connection.output.socket.Connected = false;
+      connection.input.node.update();
+
     });
     editor.on('nodeselected', () => {
       editor.nodes.forEach(n => n.update());

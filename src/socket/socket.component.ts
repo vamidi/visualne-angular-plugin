@@ -6,7 +6,7 @@ import { SocketType } from '../types';
   selector: 'visualne-socket',
   template: `<div *ngIf="socket"
                   [ngClass]="[type, socket.name, 'socket', map(socketClass)]"
-                  [style.background]="checkSocketColor('connected') ? socket.Color : ''"
+                  [style.background]="socket.Connected ? socket.Color : ''"
                   [ngStyle]="{ '--featured-image': socket.Color } "
                   [title]="socket.name">
   </div>`,
@@ -30,6 +30,11 @@ export class SocketComponent implements AfterViewInit {
   public map(arr: string[]): string
   {
     return arr.length ? arr.join(' ') : '';
+  }
+
+  public addClass(strClass: string)
+  {
+
   }
 
   public checkSocketColor(needle: string)

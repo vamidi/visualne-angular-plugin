@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef, OnInit } from '@angular/core';
-import { IO, Input as ReteInput } from 'visualne';
+import { IO, Input as VisualNEInput } from 'visualne';
 import { NodeService } from './node.service';
 import { SocketType } from './types';
 
@@ -12,7 +12,7 @@ export class SocketDirective implements OnInit {
     constructor(private el: ElementRef, private service: NodeService) {}
 
     get type(): SocketType {
-      return this.io instanceof ReteInput ? 'input' : 'output';
+      return this.io instanceof VisualNEInput ? 'input' : 'output';
     }
 
     ngOnInit() {
