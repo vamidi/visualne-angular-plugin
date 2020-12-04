@@ -59,20 +59,9 @@ class AngularRenderer extends Plugin
       el.appendChild(element);
     });
 
-    editor.on('connectioncreate', (connection) => {
-      connection.input.socket.Connected = true;
-      connection.input.node.update();
-
-      connection.output.socket.Connected = true;
-      connection.output.node.update();
-    });
-
-    editor.on('connectionremoved', (connection: Connection) =>
+    editor.on(['connectioncreate','connectioncreated', 'connectionremoved'], (connection: Connection) =>
     {
-      connection.input.socket.Connected = false;
       connection.output.node.update();
-
-      connection.output.socket.Connected = false;
       connection.input.node.update();
 
     });
