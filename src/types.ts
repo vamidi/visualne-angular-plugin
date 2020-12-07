@@ -18,17 +18,15 @@ export interface AngularControl<P extends Props = {}, T extends Component = any>
     render?: 'angular' | string;
     component: Type<T>;
     props: P;
+
+    onComponentAttached?: (comp: T) => void;
+    onComponentDetached?: () => void;
 }
 
 export interface AngularComponentData<P extends Props = {}, T extends Component = any> {
     render?: 'angular' | string;
     component: Type<T>;
     props?: P;
-}
-
-export class ComponentControl extends Component
-{
-    parent: Control;
 }
 
 export interface AngularComponent<P extends Props = {}, T extends Component = any> {

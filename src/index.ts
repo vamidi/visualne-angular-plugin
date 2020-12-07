@@ -52,9 +52,8 @@ class AngularRenderer extends Plugin
       const props: ElementProps = element as any;
 
       props.component = ngControl.component;
-      props.props = Object.assign({}, ngControl.props || {}, {
-        parent: ngControl,
-      });
+      props.control = ngControl;
+      props.props = Object.assign({}, ngControl.props || {});
 
       el.appendChild(element);
     });

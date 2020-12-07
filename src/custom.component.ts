@@ -9,14 +9,16 @@ import {
   ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
-import { ComponentControl, Props } from './types';
+import { Control } from 'visualne';
+import { AngularControl, Props } from './types';
 
 @Component({
     template: '',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomComponent implements OnInit, OnDestroy {
-  @Input() component!: Type<Component | ComponentControl>;
+  @Input() component!: Type<Component>;
+  @Input() control!: AngularControl;
   @Input() props!: Props;
 
   constructor(
@@ -29,6 +31,9 @@ export class CustomComponent implements OnInit, OnDestroy {
     const factory = this.factoryResolver.resolveComponentFactory(this.component);
     const componentRef = factory.create(this.injector);
     const { props } = this;
+
+    if (this.control && typeof this.control['onComponentAttached'] === 'function')
+      this.control.onComponentAttached(componentRef.instance);
 
     for(let key in props) {
       if(props.hasOwnProperty(key)) {
@@ -43,6 +48,9 @@ export class CustomComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.control && typeof this.control['onComponentDetached'] === 'function')
+      this.control.onComponentDetached();
+
     this.vcr.detach(0);
   }
 }

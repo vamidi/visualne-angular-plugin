@@ -3,8 +3,6 @@ import {
   Input,
   ChangeDetectionStrategy,
   AfterViewInit,
-  OnChanges,
-  SimpleChanges
 } from '@angular/core';
 import { Socket, IO, Input as VisualNEInput } from 'visualne';
 import { SocketType } from '../types';
