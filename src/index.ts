@@ -64,7 +64,7 @@ class AngularRenderer extends Plugin
       connection.input.node.update();
 
     });
-    editor.on('nodeselected', () => {
+    editor.on(['nodeselected', 'nodedeselected'], () => {
       editor.nodes.forEach(n => n.update());
     });
   }

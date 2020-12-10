@@ -11,13 +11,14 @@ import { SocketType } from '../types';
   selector: 'visualne-socket',
   template: `
       <div [ngClass]="[type, connected, socket.name, 'socket', map(socketClass)]"
-                  [ngStyle]="{ '--featured-image': socket.Color } "
+                  [style.border]="'1px solid ' + socket.Color"
+                  [style.background-color]="connected ? socket.Color : ''"
                   [title]="socket.name">
       </div>`,
   styleUrls: ['./socket.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SocketComponent implements AfterViewInit
+export class SocketComponent
 {
   @Input() socket!: Socket;
   @Input() io!: IO;
@@ -29,11 +30,6 @@ export class SocketComponent implements AfterViewInit
 
   get connected(): string {
     return this.io.hasConnection() ? 'connected' : '';
-  }
-
-  public ngAfterViewInit()
-  {
-    document.documentElement.style.setProperty('--socket-color', this.socket.Color);
   }
 
   public map(arr: string[]): string

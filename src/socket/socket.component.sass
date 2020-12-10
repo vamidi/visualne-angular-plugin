@@ -6,7 +6,6 @@
 .socket
   display: inline-block
   cursor: pointer
-  border: 1px solid var(--socket-color)
   border-radius: $socket-size/2.0
   width: $socket-size
   height: $socket-size
@@ -18,11 +17,8 @@
     border-width: 2px
   &.multiple
     border-color: yellow
-
-  &.connected
-    background: var(--socket-color)
-  &::after
-    border-color: transparent transparent transparent var(--socket-color)
+  //&::after
+  //  border-color: transparent transparent transparent var(--socket-color)
   &.exec
     width: 8px
     border-radius: 0
